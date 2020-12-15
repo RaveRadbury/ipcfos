@@ -1047,7 +1047,7 @@ if (typeof Object.getPrototypeOf !== "function")
 		this.pts_count = r.pts_count;
 		cr.shallowAssignArray(this.pts_cache, r.pts_cache);
 		this.bboxLeft = r.bboxLeft;
-		this.bboxTop - r.bboxTop;
+		this.bboxTop = r.bboxTop;
 		this.bboxRight = r.bboxRight;
 		this.bboxBottom = r.bboxBottom;
 	};
@@ -19471,8 +19471,8 @@ cr.plugins_.Browser = function(runtime)
 			Windows["System"]["Launcher"]["launchUriAsync"](new Windows["Foundation"]["Uri"](url));
 		else if (navigator["app"] && navigator["app"]["loadUrl"])
 			navigator["app"]["loadUrl"](url, { "openExternal": true });
-		else if (this.runtime.isCordova)
-			window.open(url, "_system");
+		else if (self["cordova"] && self["cordova"]["InAppBrowser"])
+			self["cordova"]["InAppBrowser"]["open"](url, "_system");
 		else if (!this.is_arcade && !this.runtime.isDomFree)
 		{
 			if (target === 2 && !this.is_arcade)		// top
@@ -19493,8 +19493,8 @@ cr.plugins_.Browser = function(runtime)
 			Windows["System"]["Launcher"]["launchUriAsync"](new Windows["Foundation"]["Uri"](url));
 		else if (navigator["app"] && navigator["app"]["loadUrl"])
 			navigator["app"]["loadUrl"](url, { "openExternal": true });
-		else if (this.runtime.isCordova)
-			window.open(url, "_system");
+		else if (self["cordova"] && self["cordova"]["InAppBrowser"])
+			self["cordova"]["InAppBrowser"]["open"](url, "_system");
 		else if (!this.is_arcade && !this.runtime.isDomFree)
 			window.open(url, tag);
 	};
@@ -26543,15 +26543,15 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Audio,
 	cr.plugins_.Browser,
 	cr.plugins_.Function,
-	cr.plugins_.gamepad,
 	cr.plugins_.Keyboard,
+	cr.plugins_.gamepad,
 	cr.plugins_.Mouse,
-	cr.plugins_.WebStorage,
-	cr.plugins_.TiledBg,
 	cr.plugins_.Text,
-	cr.plugins_.Sprite,
-	cr.plugins_.NewgroundsAPI,
 	cr.plugins_.Twitter,
+	cr.plugins_.TiledBg,
+	cr.plugins_.NewgroundsAPI,
+	cr.plugins_.WebStorage,
+	cr.plugins_.Sprite,
 	cr.behaviors.Sin,
 	cr.behaviors.Pin,
 	cr.behaviors.Bullet,
@@ -26761,4 +26761,3 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.NinePatch.prototype.cnds.PickByUID,
 	cr.plugins_.gamepad.prototype.cnds.OnAnyButtonDown
 ];};
-
